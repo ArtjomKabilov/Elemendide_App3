@@ -40,9 +40,27 @@ namespace Elemendide_App
                 Text = "Stepper/Slider",
                 BackgroundColor = Color.LightGreen,
             };
+            Button frame_btn = new Button()
+            {
+                Text = "Frame_Page",
+                BackgroundColor = Color.LightGreen,
+            };
+            frame_btn.Clicked += Frame_btn_Clicked;
+            Button image_btn = new Button()
+            {
+                Text = "Image",
+                BackgroundColor = Color.LightGreen,
+            };
+            image_btn.Clicked += Image_btn_Clicked;
+            Button Valgusfoor_btn = new Button()
+            {
+                Text = "Valgusfoor",
+                BackgroundColor = Color.LightGreen,
+            };
+            Valgusfoor_btn.Clicked += Valgusfoor_btn_Clicked;
             StackLayout st = new StackLayout()
             {
-                Children = { Ent_btn , Timer_btn , cliker , Date_btn , SS_btn }
+                Children = { Ent_btn , Timer_btn , cliker , Date_btn , SS_btn , frame_btn , image_btn, Valgusfoor_btn }
             };
 
             st.BackgroundColor = Color.AntiqueWhite;
@@ -52,6 +70,21 @@ namespace Elemendide_App
             cliker.Clicked += Cliker_Clicked;
             Date_btn.Clicked += Date_btn_Clicked;
             SS_btn.Clicked += SS_btn_Clicked;
+        }
+
+        private async void Valgusfoor_btn_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new Valgusfoor());
+        }
+
+        private async void Image_btn_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new Image_page());
+        }
+
+        private async void Frame_btn_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new Frame_Page());
         }
 
         private async void SS_btn_Clicked(object sender, EventArgs e)
