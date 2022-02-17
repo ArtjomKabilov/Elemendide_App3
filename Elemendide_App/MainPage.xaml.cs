@@ -57,10 +57,16 @@ namespace Elemendide_App
                 Text = "Valgusfoor",
                 BackgroundColor = Color.LightGreen,
             };
+            Button RGB_Btn = new Button()
+            {
+                Text = "RGB",
+                BackgroundColor = Color.LightGreen,
+            };
+            RGB_Btn.Clicked += RGB_Btn_Clicked;
             Valgusfoor_btn.Clicked += Valgusfoor_btn_Clicked;
             StackLayout st = new StackLayout()
             {
-                Children = { Ent_btn , Timer_btn , cliker , Date_btn , SS_btn , frame_btn , image_btn, Valgusfoor_btn }
+                Children = { Ent_btn , Timer_btn , cliker , Date_btn , SS_btn , frame_btn , image_btn, Valgusfoor_btn, RGB_Btn }
             };
 
             st.BackgroundColor = Color.AntiqueWhite;
@@ -70,6 +76,11 @@ namespace Elemendide_App
             cliker.Clicked += Cliker_Clicked;
             Date_btn.Clicked += Date_btn_Clicked;
             SS_btn.Clicked += SS_btn_Clicked;
+        }
+
+        private async void RGB_Btn_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new RGB());
         }
 
         private async void Valgusfoor_btn_Clicked(object sender, EventArgs e)
