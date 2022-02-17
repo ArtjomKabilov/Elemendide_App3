@@ -110,7 +110,15 @@ namespace Elemendide_App
         {
             if (bl)
             {
-                lb3.Text = "Mine";
+                if (fr3.BackgroundColor == Color.Green)
+                {
+                    lb3.Text = "Mine";
+                }
+                else if (fr3.BackgroundColor == Color.Gray)
+                {
+                    lb3.Text = "Roheline";
+                }
+                
             }
             else
             {
@@ -122,7 +130,15 @@ namespace Elemendide_App
         {
             if (bl)
             {
-                lb2.Text = "Oota";
+                if (fr2.BackgroundColor == Color.Yellow)
+                {
+                    lb2.Text = "Oota";
+                }
+                else if (fr2.BackgroundColor == Color.Gray)
+                {
+                    lb2.Text = "Kollane";
+                }
+                
             }
             else
             {
@@ -134,7 +150,15 @@ namespace Elemendide_App
         {
             if (bl)
             {
-                lb1.Text = "STOP";
+                if (fr1.BackgroundColor == Color.Red)
+                {
+                    lb1.Text = "STOP";
+                }
+                else if (fr1.BackgroundColor == Color.Gray)
+                {
+                    lb1.Text = "Punane";
+                }
+                
             }
             else
             {
@@ -161,6 +185,18 @@ namespace Elemendide_App
             {
                 lb1.Text = "Punane";
                 lb2.Text = "Kollane";
+                lb3.Text = "Roheline";
+            }
+            if (fr1.BackgroundColor == Color.Gray)
+            {
+                lb1.Text = "Punane";
+            }
+            if (fr2.BackgroundColor == Color.Gray)
+            {
+                lb2.Text = "Kollane";
+            }
+            if (fr1.BackgroundColor == Color.Gray)
+            {
                 lb3.Text = "Roheline";
             }
             while (bl)
