@@ -62,11 +62,17 @@ namespace Elemendide_App
                 Text = "RGB",
                 BackgroundColor = Color.LightGreen,
             };
+            Button TTT = new Button()
+            {
+                Text = "Trips Traps Trull",
+                BackgroundColor = Color.LightGreen,
+            };
             RGB_Btn.Clicked += RGB_Btn_Clicked;
             Valgusfoor_btn.Clicked += Valgusfoor_btn_Clicked;
+            TTT.Clicked += TTT_Clicked;
             StackLayout st = new StackLayout()
             {
-                Children = { Ent_btn , Timer_btn , cliker , Date_btn , SS_btn , frame_btn , image_btn, Valgusfoor_btn, RGB_Btn }
+                Children = { Ent_btn , Timer_btn , cliker , Date_btn , SS_btn , frame_btn , image_btn, Valgusfoor_btn, RGB_Btn, TTT }
             };
 
             st.BackgroundColor = Color.AntiqueWhite;
@@ -76,6 +82,11 @@ namespace Elemendide_App
             cliker.Clicked += Cliker_Clicked;
             Date_btn.Clicked += Date_btn_Clicked;
             SS_btn.Clicked += SS_btn_Clicked;
+        }
+
+        private async void TTT_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new TTT_Start());
         }
 
         private async void RGB_Btn_Clicked(object sender, EventArgs e)
