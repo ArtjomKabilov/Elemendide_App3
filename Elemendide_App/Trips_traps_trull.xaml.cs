@@ -12,151 +12,183 @@ namespace Elemendide_App
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Trips_traps_trull : ContentPage
     {
+        public bool esimene;
+        int tulemus = -1;
+        int[,] Tulemused = new int[3, 3];
+        Grid g, g2;
+        Button uus_mang, button;
         Image img;
         bool x = false;
         List<Image> newList=new List<Image>();
 
         public Trips_traps_trull()
         {
-            
-            Grid g = new Grid
+            g = new Grid
             {
-                
-                RowSpacing = 0,
-                ColumnSpacing = 0,
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                BackgroundColor = Color.White,
                 RowDefinitions =
                 {
-                    new RowDefinition{Height = new GridLength(2, GridUnitType.Star) },
-                    new RowDefinition{Height = new GridLength(1, GridUnitType.Star)}
-                },
-                ColumnDefinitions =
-                {
-                    new ColumnDefinition{Width = GridLength.Auto },
-                }
-            };
-            Grid g2 = new Grid
-            {
-                RowSpacing = 0,
-                RowDefinitions =
-                {
-                    new RowDefinition{Height = new GridLength(1, GridUnitType.Star)},
-                    new RowDefinition{Height = new GridLength(1, GridUnitType.Star)},
-                    new RowDefinition{Height = new GridLength(1, GridUnitType.Star)}
-                },
-                ColumnDefinitions =
-                {
-                    new ColumnDefinition{Width= new GridLength(1, GridUnitType.Star)},
-                    new ColumnDefinition{Width= new GridLength(1, GridUnitType.Star)},
-                    new ColumnDefinition{Width= new GridLength(1, GridUnitType.Star)},
-                }
-            };
-            g2.BackgroundColor = Color.White;
-            g.BackgroundColor = Color.White;
-            int b = 0;
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
-                {
-                    img = new Image();
-                    img.Source = ImageSource.FromFile("index.png");
-                    img.StyleId = b++.ToString();
-                    g2.Children.Add(img, i, j);
-                    var tap = new TapGestureRecognizer();
-                    img.GestureRecognizers.Add(tap);
-                    tap.Tapped += async (object sender, EventArgs e) =>
-                    {
-                        
-                        Image img = sender as Image;
-                        newList.Add(img);
-                        if (x)
-                        {
-                            img.Source = ImageSource.FromFile("krestik.png");
-                            img.GestureRecognizers.Clear();
-                            x = !x;
-                        }
-                        else
-                        {
-                            img.Source = ImageSource.FromFile("nolik.png");
-                            img.GestureRecognizers.Clear();
-                            x = !x;
-                        }
 
-                        win();
-                        
-                            
-                        
-                    };
-                }
-                
-            }
-            g.Children.Add(g2);
+                    new RowDefinition { Height = new GridLength(2, GridUnitType.Star) },
+                    new RowDefinition { Height = new GridLength(1, GridUnitType.Star) }
+                },
+                ColumnDefinitions =
+                {
+
+                    new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) }
+                },
+            };
+
+            Uus_mang();
+            uus_mang = new Button()
+            {
+                Text = "Uus mäng"
+            };
+            button = new Button()
+            {
+                Text = "Muutke taustavärvi"
+            };
+            g.Children.Add(uus_mang, 0, 1);
+            uus_mang.Clicked += Uus_mang_Clicked;
+            button.Clicked += Button_Clicked;
             Content = g;
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            Random r = new Random();
+            BackgroundColor = Color.FromRgb(r.Next(0, 256), r.Next(0, 256), r.Next(0, 225));
 
         }
-        private async void win()
+
+        public async void Kes_on_esimene()
         {
-
-            /*if (getImage("3").Source == getImage("4").Source && getImage("4").Source == getImage("5").Source && getImage("5").Source == getImage("3").Source)
+            string esimene_valik = await DisplayPromptAsync("Kes on esimene?", "Tee valiku Krestik-1 või Nolik-2", initialValue: "1", maxLength: 1, keyboard: Keyboard.Numeric);
+            if (esimene_valik == "1")
             {
-                await DisplayAlert("", "WIN", "Go");
-
-            }*/
-            string i;
-            if (x)
-            {
-                i = "krestik.png";
+                esimene = true;
             }
             else
             {
-                i = "nolik.png";
+                esimene = false;
             }
-            if (getImage("0", i) && getImage("1", i) && getImage("2", i))
-            {
-                await DisplayAlert("", "WIN", "Go");
-
-            }
-            /*if (getImage("6").Source == getImage("7").Source && getImage("7").Source == getImage("8").Source && getImage("8").Source == getImage("6").Source)
-            {
-                await DisplayAlert("", "WIN", "Go");
-
-            }
-            if (getImage("0").Source == getImage("4").Source && getImage("4").Source == getImage("8").Source && getImage("8").Source == getImage("0").Source)
-            {
-                await DisplayAlert("", "WIN", "Go");
-
-            }
-            if (getImage("0").Source == getImage("3").Source && getImage("3").Source == getImage("6").Source && getImage("6").Source == getImage("0").Source)
-            {
-                await DisplayAlert("", "WIN", "Go");
-
-            }
-            if (getImage("2").Source == getImage("4").Source && getImage("4").Source == getImage("6").Source && getImage("6").Source == getImage("2").Source)
-            {
-                await DisplayAlert("", "WIN", "Go");
-
-            }
-            if (getImage("2").Source == getImage("5").Source && getImage("5").Source == getImage("8").Source && getImage("8").Source == getImage("2").Source)
-            {
-                await DisplayAlert("", "WIN", "Go");
-
-            }
-            if (getImage("1").Source == getImage("4").Source && getImage("4").Source == getImage("7").Source && getImage("7").Source == getImage("1").Source)
-            {
-                await DisplayAlert("", "WIN", "Go");
-
-            }*/
-            
         }
-        private bool getImage(string n, string m)
+        private void Uus_mang_Clicked(object sender, EventArgs e)
         {
-            foreach (Image item in newList)
-            {
-                if (item.StyleId == n && item.Source == ImageSource.FromFile(m))
-                {
-                    return true;
-                }
-            }
-            return false;
+            Uus_mang();
         }
+
+        public async void Uus_mang()
+        {
+            bool uus = await DisplayAlert("Uus mäng", "Kas tõesti tahad uus mäng?", "Tahan küll!", "Ei taha!");
+            if (uus)
+            {
+                Kes_on_esimene();
+                int[,] Tulemused = new int[3, 3];
+                tulemus = -1;
+                g2 = new Grid
+                {
+                    BackgroundColor = Color.White,
+                    RowDefinitions =
+                {
+
+                    new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
+                    new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
+                    new RowDefinition { Height = new GridLength(1, GridUnitType.Star) }
+                },
+                    ColumnDefinitions =
+                {
+                   new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
+                   new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
+                   new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) }
+
+                }
+                };
+                for (int i = 0; i < 3; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+
+                        img = new Image();
+                        img.Source = ImageSource.FromFile("index.png");
+                        g2.Children.Add(img, j, i);
+                        TapGestureRecognizer tap = new TapGestureRecognizer();
+                        tap.Tapped += Tap_Tapped;
+                        img.GestureRecognizers.Add(tap);
+                    }
+                }
+                g.Children.Add(g2, 0, 0);
+            }
+
+        }
+
+        public int Kontroll()
+        {
+            if (Tulemused[0, 0] == 1 && Tulemused[1, 0] == 1 && Tulemused[2, 0] == 1 || Tulemused[0, 1] == 1 && Tulemused[1, 1] == 1 && Tulemused[2, 1] == 1 || Tulemused[0, 2] == 1 && Tulemused[1, 2] == 1 && Tulemused[2, 2] == 1)
+            {
+                tulemus = 1;
+            }
+
+            else if (Tulemused[0, 0] == 1 && Tulemused[0, 1] == 1 && Tulemused[0, 2] == 1 || Tulemused[1, 0] == 1 && Tulemused[1, 1] == 1 && Tulemused[1, 2] == 1 || Tulemused[2, 0] == 1 && Tulemused[2, 1] == 1 && Tulemused[2, 2] == 1)
+            {
+                tulemus = 1;
+            }
+            else if (Tulemused[0, 0] == 1 && Tulemused[1, 1] == 1 && Tulemused[2, 2] == 1 || Tulemused[0, 2] == 1 && Tulemused[1, 1] == 1 && Tulemused[2, 0] == 1)
+            {
+                tulemus = 1;
+            }
+            return tulemus;
+
+           /* if (Tulemused[0, 0] == 0 && Tulemused[1, 0] == 0 && Tulemused[2, 0] == 0 || Tulemused[0, 1] == 0 && Tulemused[1, 1] == 0 && Tulemused[2, 1] == 0 || Tulemused[0, 2] == 0 && Tulemused[1, 2] == 0 && Tulemused[2, 2] == 0)
+            {
+                tulemus = 0;
+            }
+            else if (Tulemused[0, 0] == 0 && Tulemused[0, 1] == 0 && Tulemused[0, 2] == 0 || Tulemused[1, 0] == 0 && Tulemused[1, 1] == 0 && Tulemused[1, 2] == 0 || Tulemused[2, 0] == 0 && Tulemused[2, 1] == 0 && Tulemused[2, 2] == 0)
+            {
+                tulemus = 0;
+            }
+            else if (Tulemused[0, 0] == 0 && Tulemused[1, 1] == 0 && Tulemused[2, 2] == 0 || Tulemused[0, 2] == 0 && Tulemused[1, 1] == 0 && Tulemused[2, 0] == 0)
+            {
+                tulemus = 0;
+            }
+            return tulemus;*/
+        }
+        public void Lopp()
+        {
+            tulemus = Kontroll();
+            if (tulemus == 1)
+            {
+                DisplayAlert("Võit", "Esimine on võitja!", "Ok");
+            }
+            else if (tulemus == 0)
+            {
+                DisplayAlert("Võit", "Teine on võitja!", "Ok");
+            }
+        }
+        private void Tap_Tapped(object sender, EventArgs e)
+        {
+            var img = (Image)sender;
+            var r = Grid.GetRow(img);
+            var c = Grid.GetColumn(img);
+            if (esimene == true)
+            {
+                img.Source = ImageSource.FromFile("krestik.png");
+                img.GestureRecognizers.Clear();
+                esimene = false;
+                Tulemused[r, c] = 1;
+            }
+            else
+            {
+                img.Source = ImageSource.FromFile("nolik.png");
+                img.GestureRecognizers.Clear();
+                esimene = true;
+                Tulemused[r, c] = 0;
+            }
+            g2.Children.Add(img, c, r);
+            Lopp();
+
+        } 
+
     }
 }
